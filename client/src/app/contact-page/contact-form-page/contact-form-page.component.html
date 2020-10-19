@@ -1,0 +1,66 @@
+<div class="page-title">
+  <h4>
+
+    <i class="material-icons">{{isNew ? 'Добавить' : 'Редактировать'}}</i>
+
+  </h4>
+  <span *ngIf="!isNew">
+    <button
+      class="btn btn-small red"
+      (click)="deleteContact()"
+      [disabled]="form.disabled"
+    >
+      <i class="material-icons">Удалить</i>
+    </button>
+  </span>
+</div>
+
+<div class="row">
+  <form class="col s12 l6" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="input-field">
+      <input
+        id="firstname"
+        type="text"
+        formControlName="firstname"
+        [ngClass]="{'invalid': form.get('firstname').invalid && form.get('firstname').touched}"
+      >
+      <label for="firstname">Имя</label>
+      <span
+        class="helper-text red-text"
+        *ngIf="form.get('firstname').invalid && form.get('firstname').touched"
+      >
+        <span *ngIf="form.get('firstname').errors['required']">
+          Имя не может быть пустым
+        </span>
+      </span>
+    </div>
+
+    <div class="input-field">
+      <input
+        id="lastname"
+        type="text"
+        formControlName="lastname"
+      >
+      <label for="lastname">Фамилия</label>
+    </div>
+
+    <div class="input-field">
+      <input id="email" type="email" formControlName="email" [ngClass]="{'invalid': form.get('email').invalid && form.get('email').touched}">
+      <label for="email">Email:</label>
+      <span class="helper-text red-text" *ngIf="form.get('email').invalid && form.get('email').touched">
+        <span *ngIf="form.get('email').errors['required']">Email не должен быть пустым</span>
+        <span *ngIf="form.get('email').errors['email']">Email не корректен</span>
+      </span>
+    </div>
+
+    <div>
+      <button
+        class="waves-effect waves-light btn"
+        type="submit"
+        [disabled]="form.invalid || form.disabled"
+      >
+        Сохранить
+      </button>
+    </div>
+  </form>
+</div>
